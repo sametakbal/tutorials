@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/productdb
+    username: postgres
+    password: password
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      generate_statistics: true
+      ddl-auto: validate
+
+  flyway:
+    locations: classpath:db/migration/
+    out-of-order: true

@@ -1,16 +1,14 @@
 package com.sametakbal.relationalcrud.entity;
 
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Table(name = "author")
-@Entity
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
+@Data
+@EqualsAndHashCode
 public class Author {
     @Id
     @Column(name = "id")

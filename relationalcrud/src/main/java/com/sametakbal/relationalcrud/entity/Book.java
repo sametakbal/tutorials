@@ -1,6 +1,7 @@
 package com.sametakbal.relationalcrud.entity;
 
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -8,10 +9,8 @@ import java.util.Set;
 
 @Entity
 @Table(name = "books")
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
+@Data
+@EqualsAndHashCode
 public class Book {
     @Id
     @Column(name = "id")
