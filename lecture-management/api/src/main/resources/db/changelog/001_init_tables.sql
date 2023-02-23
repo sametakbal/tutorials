@@ -2,7 +2,7 @@ create table users(
     id serial primary key,
     name varchar(255) not null,
     surname varchar(255) not null,
-    student_no varchar(11) not null unique,
+    identity_no varchar(11) not null unique,
     gender varchar(11) not null,
     urole  varchar(16)  not null
 );

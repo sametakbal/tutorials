@@ -18,8 +18,8 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Integer id;
-    @Column(name = "student_no",length =11,unique = true)
-    private String studentNo;
+    @Column(name = "identity_no",length =11,unique = true)
+    private String identityNo;
     @Column
     private String name;
     @Column
