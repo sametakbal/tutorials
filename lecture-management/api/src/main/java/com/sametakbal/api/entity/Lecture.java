@@ -12,7 +12,12 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Lecture extends BaseEntity{
+public class Lecture {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
+    private Integer id;
     @Column(nullable = false)
     private String name;
     @ManyToOne
