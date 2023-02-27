@@ -4,6 +4,8 @@ import com.sametakbal.api.common.GeneralException;
 import com.sametakbal.api.entity.User;
 import com.sametakbal.api.repository.IUserRepository;
 import com.sametakbal.api.service.IUserService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 
@@ -45,6 +47,18 @@ public class UserService implements IUserService {
         return userRepository.findAll();
     }
 
+    @Override
+    public Page<User> getAll(Pageable pageable) {
+        return userRepository.findAll(pageable);
+    }
+
+    @Override
+    public void delete(Integer id) {
+        if (!userRepository.existsById(id)) {
+            throw new GeneralException("User Not Found");
+        }
+        userRepository.deleteById(id);
+    }
 
 
 }
