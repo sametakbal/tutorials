@@ -53,19 +53,48 @@ export default function User() {
           </Table>
         </Grid.Column>
         <Grid.Column width={4}>
-          <div class="ui form">
-            <div class="field">
-              <label>First name</label>
-              <input type="text" placeholder="First Name" />
+          <div className="ui form">
+            <div className="field">
+              <label>Name</label>
+              <input type="text" name="name" placeholder="First Name" />
             </div>
-            <div class="field">
-              <label>Middle name</label>
-              <input type="text" placeholder="Middle Name" />
+            <div className="field">
+              <label>Surname</label>
+              <input type="text" name="surname" placeholder="Surname" />
             </div>
-            <div class="field">
-              <label>Last name</label>
-              <input type="text" placeholder="Last Name" />
+            <div className="field">
+              <label>Identity No</label>
+              <input type="text" name="identityNo" placeholder="Identity No" />
             </div>
+            <div className="ui form">
+              <div className="field">
+                <label>Gender</label>
+                <select>
+                  <option value="">Gender</option>
+                  <option value="MALE">Male</option>
+                  <option value="FEMALE">Female</option>
+                </select>
+              </div>
+            </div>
+            <div className="ui form">
+              <div className="field">
+                <label>Role</label>
+                <select>
+                  <option className="item" value="">
+                    Role
+                  </option>
+                  <option className="item" value="STUDENT">
+                    Student
+                  </option>
+                  <option className="item" value="TEACHER">
+                    Teacher
+                  </option>
+                </select>
+              </div>
+            </div>
+
+            <div className="ui primary submit button">Submit</div>
+            <div className="ui submit button">Clear Form</div>
           </div>
         </Grid.Column>
       </Grid>
