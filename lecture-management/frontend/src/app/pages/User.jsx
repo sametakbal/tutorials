@@ -1,103 +1,120 @@
-import { Grid, Icon, Label, Menu, Table } from "semantic-ui-react";
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Table from 'react-bootstrap/Table';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 export default function User() {
   return (
     <>
-      <Grid>
-        <Grid.Column width={10}>
-          <Table celled>
-            <Table.Header>
-              <Table.Row>
-                <Table.HeaderCell>Header</Table.HeaderCell>
-                <Table.HeaderCell>Header</Table.HeaderCell>
-                <Table.HeaderCell>Header</Table.HeaderCell>
-              </Table.Row>
-            </Table.Header>
-
-            <Table.Body>
-              <Table.Row>
-                <Table.Cell>First</Table.Cell>
-                <Table.Cell>Cell</Table.Cell>
-                <Table.Cell>Cell</Table.Cell>
-              </Table.Row>
-              <Table.Row>
-                <Table.Cell>Cell</Table.Cell>
-                <Table.Cell>Cell</Table.Cell>
-                <Table.Cell>Cell</Table.Cell>
-              </Table.Row>
-              <Table.Row>
-                <Table.Cell>Cell</Table.Cell>
-                <Table.Cell>Cell</Table.Cell>
-                <Table.Cell>Cell</Table.Cell>
-              </Table.Row>
-            </Table.Body>
-
-            <Table.Footer>
-              <Table.Row>
-                <Table.HeaderCell colSpan="3">
-                  <Menu floated="right" pagination>
-                    <Menu.Item as="a" icon>
-                      <Icon name="chevron left" />
-                    </Menu.Item>
-                    <Menu.Item as="a">1</Menu.Item>
-                    <Menu.Item as="a">2</Menu.Item>
-                    <Menu.Item as="a">3</Menu.Item>
-                    <Menu.Item as="a">4</Menu.Item>
-                    <Menu.Item as="a" icon>
-                      <Icon name="chevron right" />
-                    </Menu.Item>
-                  </Menu>
-                </Table.HeaderCell>
-              </Table.Row>
-            </Table.Footer>
-          </Table>
-        </Grid.Column>
-        <Grid.Column width={4}>
-          <div className="ui form">
-            <div className="field">
-              <label>Name</label>
-              <input type="text" name="name" placeholder="First Name" />
-            </div>
-            <div className="field">
-              <label>Surname</label>
-              <input type="text" name="surname" placeholder="Surname" />
-            </div>
-            <div className="field">
-              <label>Identity No</label>
-              <input type="text" name="identityNo" placeholder="Identity No" />
-            </div>
-            <div className="ui form">
-              <div className="field">
-                <label>Gender</label>
-                <select>
-                  <option value="">Gender</option>
-                  <option value="MALE">Male</option>
-                  <option value="FEMALE">Female</option>
-                </select>
-              </div>
-            </div>
-            <div className="ui form">
-              <div className="field">
-                <label>Role</label>
-                <select>
-                  <option className="item" value="">
-                    Role
-                  </option>
-                  <option className="item" value="STUDENT">
-                    Student
-                  </option>
-                  <option className="item" value="TEACHER">
-                    Teacher
-                  </option>
-                </select>
-              </div>
-            </div>
-
-            <div className="ui primary submit button">Submit</div>
-            <div className="ui submit button">Clear Form</div>
-          </div>
-        </Grid.Column>
-      </Grid>
+      <Container>
+        <Row>
+          <Col sm={8}>
+            <Table
+              striped
+              bordered
+              hover
+            >
+              <thead>
+                <tr>
+                  <th>Identity No</th>
+                  <th> Name</th>
+                  <th> Surname</th>
+                  <th>Gender</th>
+                  <th>Role</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>11231312</td>
+                  <td>Samet</td>
+                  <td>AKBAL</td>
+                  <td>MALE</td>
+                  <td>STUDENT</td>
+                </tr>
+              </tbody>
+            </Table>
+          </Col>
+          <Col sm={4}>
+            <Form>
+              <Form.Group
+                className='mb-3'
+                controlId='identityNo'
+              >
+                <Form.Label>Identity No</Form.Label>
+                <Form.Control
+                  type='text'
+                  placeholder='Identity No'
+                  name='identityNo'
+                />
+              </Form.Group>
+              <Form.Group
+                className='mb-3'
+                controlId='name'
+              >
+                <Form.Label>Name</Form.Label>
+                <Form.Control
+                  type='text'
+                  placeholder='Name'
+                  name='name'
+                />
+              </Form.Group>
+              <Form.Group
+                className='mb-3'
+                controlId='surname'
+              >
+                <Form.Label>Surname</Form.Label>
+                <Form.Control
+                  type='text'
+                  placeholder='Surname'
+                  name='surname'
+                />
+              </Form.Group>
+              <Form.Group
+                className='mb-3'
+                controlId='gender'
+              >
+                <Form.Label>Gender</Form.Label>
+                <Form.Select aria-label='Please select gender'>
+                  <option>Please select gender</option>
+                  <option value='MALE'>Male</option>
+                  <option value='FEMALE'>Female</option>
+                </Form.Select>
+              </Form.Group>
+              <Form.Group
+                className='mb-3'
+                controlId='role'
+              >
+                <Form.Label>Role</Form.Label>
+                <Form.Select aria-label='Please select role'>
+                  <option>Please select role</option>
+                  <option value='STUDENT'>Student</option>
+                  <option value='TEACHER'>Teacher</option>
+                </Form.Select>
+              </Form.Group>
+              <Button
+                variant='primary'
+                type='submit'
+              >
+                Submit
+              </Button>{' '}
+              <Button
+                variant='outline-primary'
+                type='button'
+              >
+                Clear
+              </Button>{' '}
+              <Button
+                variant='danger'
+                type='button'
+              >
+                Delete
+              </Button>
+            </Form>
+          </Col>
+        </Row>
+      </Container>
     </>
   );
 }

@@ -3,6 +3,7 @@ import Layout from './layout/Layout';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Lecture from './pages/Lecture';
 import User from './pages/User';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
