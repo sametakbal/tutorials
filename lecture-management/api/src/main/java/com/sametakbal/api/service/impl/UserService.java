@@ -24,11 +24,13 @@ public class UserService implements IUserService {
 
     @Override
     public User save(User user) {
-        if (user.getIdentityNo() == null || user.getIdentityNo().length() != 11) {
-            throw new GeneralException("Invalid Identity No");
-        }
-        if (userRepository.existsByIdentityNo(user.getIdentityNo())) {
-            throw new GeneralException("Identity No Already Exists");
+        if (user.getId() == null) {
+            if (user.getIdentityNo() == null || user.getIdentityNo().length() != 11) {
+                throw new GeneralException("Invalid Identity No");
+            }
+            if (userRepository.existsByIdentityNo(user.getIdentityNo())) {
+                throw new GeneralException("Identity No Already Exists");
+            }
         }
         return userRepository.save(user);
     }
