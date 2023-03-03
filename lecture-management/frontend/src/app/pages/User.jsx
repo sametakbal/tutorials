@@ -7,10 +7,16 @@ import Form from 'react-bootstrap/Form';
 import Spinner from 'react-bootstrap/Spinner';
 import { useEffect, useState } from 'react';
 import { Modal } from 'react-bootstrap';
+import Pagination from 'react-bootstrap/Pagination';
+import Alert from 'react-bootstrap/Alert';
 
 export default function User() {
   const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
   const [users, setUsers] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageItems, setPageItems] = useState([]);
+
   const [selectedUser, setSelectedUser] = useState({
     identityNo: '',
     name: '',
@@ -25,24 +31,37 @@ export default function User() {
   useEffect(() => {
     setIsLoading(true);
     loadUsers();
-  }, []);
+  }, [currentPage]);
 
   function loadUsers() {
-    fetch('http://localhost:8080/api/users')
+    fetch(`http://localhost:8080/api/users?page=${currentPage - 1}&pageSize=12`)
       .then((res) => res.json())
       .then((result) => {
         setIsLoading(false);
-        setUsers(result);
+        setUsers(result.content);
+        let items = [];
+        for (let number = 1; number <= result.totalPages; number++) {
+          items.push(
+            <Pagination.Item
+              key={number}
+              active={number === currentPage}
+              onClick={() => setCurrentPage(number)}
+            >
+              {number}
+            </Pagination.Item>
+          );
+        }
+        setPageItems(items);
       });
   }
 
   function isClear() {
-    return !(
-      selectedUser.identityNo === '' ||
-      selectedUser.name === '' ||
-      selectedUser.surname === '' ||
-      selectedUser.gender === '' ||
-      selectedUser.role === ''
+    return (
+      selectedUser.identityNo !== '' ||
+      selectedUser.name !== '' ||
+      selectedUser.surname !== '' ||
+      selectedUser.gender !== '' ||
+      selectedUser.role !== ''
     );
   }
 
@@ -71,17 +90,23 @@ export default function User() {
     });
   }
 
-  function createUser() {
+  function saveUser() {
     fetch('http://localhost:8080/api/users', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       mode: 'cors',
       body: JSON.stringify(selectedUser),
-    }).then(() => {
-      setShow(false);
-      loadUsers();
-      clearForm();
-    });
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        setShow(false);
+        loadUsers();
+        setErrorMessage(result.errorMessage);
+        clearForm();
+      })
+      .catch((error) => {
+        alert(error);
+      });
   }
 
   function updateUser() {
@@ -102,51 +127,51 @@ export default function User() {
       <Container>
         <Row>
           <Col sm={8}>
-            {isLoading ? (
-              <Spinner
-                animation='border'
-                role='status'
-                variant='primary'
-                className='text-center'
-              >
-                <span className='visually-hidden'>Loading...</span>
-              </Spinner>
-            ) : (
-              <Table
-                striped
-                bordered
-                hover
-              >
-                <thead>
-                  <tr>
-                    <th>Identity No</th>
-                    <th> Name</th>
-                    <th> Surname</th>
-                    <th>Gender</th>
-                    <th>Role</th>
+            <Table
+              striped
+              bordered
+              hover
+            >
+              <thead>
+                <tr>
+                  <th>Identity No</th>
+                  <th> Name</th>
+                  <th> Surname</th>
+                  <th>Gender</th>
+                  <th>Role</th>
+                </tr>
+              </thead>
+              <tbody>
+                {users.map((user) => (
+                  <tr
+                    key={user.id}
+                    onClick={() => {
+                      setSelectedUser(user);
+                    }}
+                  >
+                    <td>{user.identityNo}</td>
+                    <td>{user.name}</td>
+                    <td>{user.surname}</td>
+                    <td>{user.gender}</td>
+                    <td>{user.role}</td>
                   </tr>
-                </thead>
-                <tbody>
-                  {users.map((user) => (
-                    <tr
-                      key={user.id}
-                      onClick={() => {
-                        setSelectedUser(user);
-                      }}
-                    >
-                      <td>{user.identityNo}</td>
-                      <td>{user.name}</td>
-                      <td>{user.surname}</td>
-                      <td>{user.gender}</td>
-                      <td>{user.role}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </Table>
-            )}
+                ))}
+              </tbody>
+            </Table>
+            <Pagination>{pageItems}</Pagination>
           </Col>
           <Col sm={4}>
             <Form>
+              {errorMessage ? (
+                <Alert
+                  key='danger'
+                  variant='danger'
+                >
+                  {errorMessage}
+                </Alert>
+              ) : (
+                ''
+              )}
               <Form.Group
                 className='mb-3'
                 controlId='identityNo'
@@ -230,7 +255,7 @@ export default function User() {
                 <Button
                   variant='primary'
                   type='button'
-                  onClick={createUser}
+                  onClick={saveUser}
                 >
                   Create User
                 </Button>
@@ -244,13 +269,17 @@ export default function User() {
                   >
                     Clear
                   </Button>{' '}
-                  <Button
-                    variant='danger'
-                    type='button'
-                    onClick={handleShow}
-                  >
-                    Delete
-                  </Button>
+                  {selectedUser.id ? (
+                    <Button
+                      variant='danger'
+                      type='button'
+                      onClick={handleShow}
+                    >
+                      Delete
+                    </Button>
+                  ) : (
+                    ''
+                  )}
                 </>
               ) : (
                 ' '
