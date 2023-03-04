@@ -24,6 +24,13 @@ public class Lecture {
     @JoinColumn(name = "teacher_id")
     private User teacher;
 
+    public Integer getTeacherId(){
+        if (teacher != null) {
+            return teacher.getId();
+        }
+        return null;
+    }
+
     @ManyToMany
     @JoinTable(
             name = "user_lectures",

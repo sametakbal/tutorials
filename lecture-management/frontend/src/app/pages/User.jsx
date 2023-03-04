@@ -4,14 +4,12 @@ import Col from 'react-bootstrap/Col';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import Spinner from 'react-bootstrap/Spinner';
 import { useEffect, useState } from 'react';
 import { Modal } from 'react-bootstrap';
 import Pagination from 'react-bootstrap/Pagination';
 import Alert from 'react-bootstrap/Alert';
 
 export default function User() {
-  const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
   const [users, setUsers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -29,15 +27,13 @@ export default function User() {
   const handleShow = () => setShow(true);
 
   useEffect(() => {
-    setIsLoading(true);
     loadUsers();
   }, [currentPage]);
 
   function loadUsers() {
-    fetch(`http://localhost:8080/api/users?page=${currentPage - 1}&pageSize=12`)
+    fetch(`http://localhost:8080/api/users?page=${currentPage - 1}`)
       .then((res) => res.json())
       .then((result) => {
-        setIsLoading(false);
         setUsers(result.content);
         let items = [];
         for (let number = 1; number <= result.totalPages; number++) {
@@ -179,6 +175,7 @@ export default function User() {
                 <Form.Label>Identity No</Form.Label>
                 <Form.Control
                   type='text'
+                  autoComplete='off'
                   placeholder='Identity No'
                   value={selectedUser.identityNo}
                   onChange={(e) => handleInputChange(e)}
@@ -192,6 +189,7 @@ export default function User() {
                 <Form.Label>Name</Form.Label>
                 <Form.Control
                   type='text'
+                  autoComplete='off'
                   placeholder='Name'
                   name='name'
                   value={selectedUser.name}
@@ -206,6 +204,7 @@ export default function User() {
                 <Form.Control
                   type='text'
                   placeholder='Surname'
+                  autoComplete='off'
                   name='surname'
                   value={selectedUser.surname}
                   onChange={(e) => handleInputChange(e)}

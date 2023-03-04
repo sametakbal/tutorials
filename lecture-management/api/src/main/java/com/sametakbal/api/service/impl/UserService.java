@@ -2,6 +2,7 @@ package com.sametakbal.api.service.impl;
 
 import com.sametakbal.api.common.GeneralException;
 import com.sametakbal.api.entity.User;
+import com.sametakbal.api.entity.enums.Role;
 import com.sametakbal.api.repository.IUserRepository;
 import com.sametakbal.api.service.IUserService;
 import org.springframework.data.domain.Page;
@@ -63,4 +64,16 @@ public class UserService implements IUserService {
     }
 
 
+    @Override
+    public List<User> getUserByRole(Role role) {
+        return userRepository.findAllByRole(role);
+    }
+
+    @Override
+    public List<User> getPotentialUsers(List<Integer> ids) {
+        if (ids.isEmpty()) {
+            return getUserByRole(Role.STUDENT);
+        }
+        return userRepository.findAllByRoleAndIdIsNotIn(Role.STUDENT,ids);
+    }
 }
