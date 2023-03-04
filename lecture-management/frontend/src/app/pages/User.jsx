@@ -178,6 +178,7 @@ export default function User() {
                   autoComplete='off'
                   placeholder='Identity No'
                   value={selectedUser.identityNo}
+                  maxLength={'11'}
                   onChange={(e) => handleInputChange(e)}
                   name='identityNo'
                 />
