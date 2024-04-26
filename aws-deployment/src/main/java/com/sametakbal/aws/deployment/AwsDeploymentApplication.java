@@ -1,13 +1,13 @@
-package com.akbal.springsecurity;
+package com.sametakbal.aws.deployment;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringSecurityApplication {
+public class AwsDeploymentApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringSecurityApplication.class, args);
+		SpringApplication.run(AwsDeploymentApplication.class, args);
 	}
 
 }

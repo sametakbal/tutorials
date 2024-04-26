@@ -1,10 +1,10 @@
-package com.akbal.springsecurity;
+package com.sametakbal.aws.deployment;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SpringSecurityApplicationTests {
+class AwsDeploymentApplicationTests {
 
 	@Test
 	void contextLoads() {
