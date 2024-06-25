@@ -1,0 +1,43 @@
+spring:
+  application:
+    name: user-management
+    security:
+      jwt:
+        secret-key: A5D4E596946F3A4E37C54271E8FD6A5D4E596946F3A4E37C54271E8FD6785412
+        expiration: 86400000 # a day
+        refresh-token:
+          expiration: 604800000 # 7 days
+  datasource:
+    url: jdbc:postgresql://localhost:5432/users_db
+    username: postgres
+    password: password
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    defer-datasource-initialization: true
+  jackson:
+    serialization:
+      INDENT_OUTPUT: true
+    date-format: com.fasterxml.jackson.databind.util.StdDateFormat
+    default-property-inclusion: non_null
+  sql:
+    init:
+      mode: always
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: yourmail@gmail.com
+    password: password
+    properties:
+      mail:
+        smtp:
+          ssl:
+            trust: "*"
+          auth: true
+          starttls:
+            enable: true
+          connection-timeout: 5000
+          timeout: 3000
+          write-timeout: 5000
