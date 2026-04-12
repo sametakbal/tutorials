@@ -1,0 +1,27 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: order-service
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        # Mesaja __TypeId__ header'ı ekle — consumer'ın tipi otomatik çözmesi için
+        spring.json.add.type.headers: true
+    consumer:
+      group-id: order-saga-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "com.saga.*"
+        spring.json.use.type.headers: true
+
+logging:
+  level:
+    com.saga: DEBUG
+    org.apache.kafka: WARN
